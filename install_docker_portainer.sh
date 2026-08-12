@@ -39,8 +39,10 @@ sudo docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /srv/nas/docker/portainer:/data \
   portainer/portainer-ce:latest
-  
+
+network_name=$(hostname)
+
 echo "=== Installation terminée ==="
-echo "Accès Portainer : https://tatooine:9443"
-echo "Ou : http://tatooine:9000"
+echo "Accès Portainer : https://${network_name}:9443"
+echo "Ou : http://${network_name}:9000"
 echo "Déconnecte-toi / reconnecte-toi pour activer le groupe docker."

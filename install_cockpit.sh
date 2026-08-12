@@ -19,6 +19,8 @@ fi
 sudo systemctl enable NetworkManager
 sudo systemctl start NetworkManager
 
+network_name=$(hostname)
+
 echo "=== Installation terminée ==="
-echo "Accès Cockpit : https://tatooine:9090"
-echo "Ou : http://tatooine:9090"
+echo "Accès Cockpit : https://${network_name}:9090"
+echo "Ou : http://${network_name}:9090"

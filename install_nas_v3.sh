@@ -4,7 +4,6 @@ set -e
 user_name=""
 nas_group="nasusers"
 local_storage_path=""
-samba_password=""
 
 network_name=$(hostname)
 
@@ -13,13 +12,12 @@ while [[ $# -gt 0 ]]; do
             --user-name) user_name="$2"; shift 2 ;;
             --nas-group) nas_group="$2"; shift 2 ;;
             --local-storage-path) local_storage_path="$2"; shift 2 ;;
-            --network-name) network_name="$2"; shift 2 ;;
-            --samba-password) samba_password="$2"; shift 2 ;;
+            --network-name) network_name="$2"; shift 2 ;;            
             *) echo "Option inconnue : $1" >&2; exit 1 ;;
         esac
     done
 
-if [[ -z "$user_name" || -z "$nas_group" || -z "$local_storage_path" || -z "$samba_password" ]]; then
+if [[ -z "$user_name" || -z "$nas_group" || -z "$local_storage_path" ]]; then
     echo "Usage: $0 --user-name <username> --nas-group <groupname> --local-storage-path <path> --samba-password <password>" >&2
     exit 1
 fi
@@ -59,14 +57,15 @@ sudo chmod -R 775 /srv/nas
 
 echo "=== Configuration des bind mounts ==="
 
-if ! grep -q "\"${local_storage_path}/media\"" /etc/fstab; then
+if ! grep -q "${local_storage_path}/media" /etc/fstab; then
 sudo bash -c "cat >> /etc/fstab <<EOF
-\"${local_storage_path}/media\"     /srv/nas/media     none    bind    0 0
-\"${local_storage_path}/documents\" /srv/nas/documents none    bind    0 0
-\"${local_storage_path}/backups\"   /srv/nas/backups   none    bind    0 0
-\"${local_storage_path}/docker\"    /srv/nas/docker    none    bind    0 0
+${local_storage_path}/media     /srv/nas/media     none    bind    0 0
+${local_storage_path}/documents /srv/nas/documents none    bind    0 0
+${local_storage_path}/backups   /srv/nas/backups   none    bind    0 0
+${local_storage_path}/docker    /srv/nas/docker    none    bind    0 0
 EOF"
 fi
+
 sudo mount -a
 
 echo "=== Installation de Samba ==="
@@ -131,7 +130,7 @@ sudo bash -c "cat > /etc/samba/smb.conf << EOF
 EOF"
 
 echo "=== Création de l’utilisateur Samba ==="
-(echo "${samba_password}" ; echo "${samba_password}") | sudo smbpasswd -a "${user_name}"
+sudo smbpasswd -a "${user_name}"
 
 
 echo "=== Redémarrage Samba ==="
