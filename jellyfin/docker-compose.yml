@@ -9,8 +9,8 @@ services:
       - 8096:8096/tcp
       - 7359:7359/udp
     volumes:
-      - /srv/nass/dockers/jellyfin/config:/config
-      - /srv/nass/dockers/jellyfin/cache:/cache
+      - /srv/nas/dockers/jellyfin/config:/config
+      - /srv/nas/dockers/jellyfin/cache:/cache
       - type: bind
         source: /srv/nass/media
         target: /media      
