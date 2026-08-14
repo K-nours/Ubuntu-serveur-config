@@ -5,5 +5,8 @@
 # configure DuckDNS to point to the server
 # configure Nginx to reverse proxy to Jellyfin
 
+mkdir -p /srv/nass/dockers/jellyfin
+mkdir -p /srv/nass/dockers/jellyfin/config
+mkdir -p /srv/nass/dockers/jellyfin/cache
 
 docker compose up -d
