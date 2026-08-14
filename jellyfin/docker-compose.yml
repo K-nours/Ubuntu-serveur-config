@@ -9,10 +9,10 @@ services:
       - 8096:8096/tcp
       - 7359:7359/udp
     volumes:
-      - /srv/nas/dockers/jellyfin/config:/config
-      - /srv/nas/dockers/jellyfin/cache:/cache
+      - /srv/nas/docker/jellyfin/config:/config
+      - /srv/nas/docker/jellyfin/cache:/cache
       - type: bind
-        source: /srv/nass/media
+        source: /srv/nas/media
         target: /media      
       # Optional - extra fonts to be used during transcoding with subtitle burn-in
       - type: bind
