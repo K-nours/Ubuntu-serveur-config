@@ -19,4 +19,4 @@ services:
         source: /path/to/fonts
         target: /usr/local/share/fonts/custom
         read_only: true
-    restart: 'unless-stopped'        
+    restart: 'unless-stopped'
