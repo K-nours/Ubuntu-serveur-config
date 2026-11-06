@@ -93,8 +93,8 @@ set_disk_queue_depth(){
         echo "Usage: set_disk_queue_depth -depth profondeur [-disk disque]" >&2
         return 2
     fi
-
-    echo "$queue_depth" > "/sys/block/${disk}/device/queue_depth"
+    
+    echo  "$queue_depth" | sudo tee /sys/block/${disk}/device/queue_depth
 }
 
 # Affiche l'aide des fonctions de vérification du disque.
