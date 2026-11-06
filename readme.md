@@ -61,12 +61,12 @@ Le script définit des fonctions dans le shell courant ; il ne s'exécute pas di
 source maintenance/check_disk.sh
 ```
 
-- `check_disk_error [disque]` affiche les messages du noyau depuis le début de la journée contenant le disque, `timeout` ou `error`. Le disque vaut `sda` par défaut ; la consultation du journal utilise `sudo`.
-- `check_disk_queue_depth [disque]` affiche la profondeur actuelle de la file d'attente ; le disque vaut `sda` par défaut.
-- `set_disk_queue_depth <profondeur> [disque]` exige une profondeur et accepte un disque optionnel (par défaut `sda`). Cette commande doit être exécutée avec les droits root ; la modification n'est pas persistante après un redémarrage.
+- `check_disk_error [-disk disque]` affiche les messages du noyau depuis le début de la journée contenant le disque, `timeout` ou `error`. Le disque vaut `sda` par défaut ; la consultation du journal utilise `sudo`.
+- `check_disk_queue_depth [-disk disque]` affiche la profondeur actuelle de la file d'attente ; `-disk` vaut `sda` par défaut.
+- `set_disk_queue_depth -depth profondeur [-disk disque]` exige `-depth` et accepte `-disk` en option (par défaut `sda`). Cette commande doit être exécutée avec les droits root ; la modification n'est pas persistante après un redémarrage.
 - `check_disk_help` affiche l'aide intégrée et les paramètres des fonctions.
 
-Exemple : `check_disk_queue_depth sdb` ou `set_disk_queue_depth 32 sdb`.
+Exemple : `check_disk_queue_depth -disk sdb` ou `set_disk_queue_depth -depth 32 -disk sdb`.
 
 ## Services Docker
 
