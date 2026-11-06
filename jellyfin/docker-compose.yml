@@ -4,19 +4,18 @@ services:
     container_name: jellyfin
     # Optional - specify the uid and gid you would like Jellyfin to use instead of root
     # set 1000:1000 to run as the first user created on the system 
-    user: 1000:1000
+    user: 0:0
     ports:
       - 8096:8096/tcp
       - 7359:7359/udp
     volumes:
       - /srv/nas/docker/jellyfin/config:/config
       - /srv/nas/docker/jellyfin/cache:/cache
+      - /srv/nas/docker/jellyfin/fonts:/usr/local/share/fonts/custom
       - type: bind
         source: /srv/nas/media
-        target: /media      
-      # Optional - extra fonts to be used during transcoding with subtitle burn-in
+        target: /media
       - type: bind
-        source: /path/to/fonts
-        target: /usr/local/share/fonts/custom
-        read_only: true
+        source: /srv/toschestation
+        target: /toschestation
     restart: 'unless-stopped'
